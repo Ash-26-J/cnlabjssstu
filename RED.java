@@ -1,3 +1,4 @@
+//red algorithm
 import java.util.*;
 public class RED{
  private static final int MIN_THRESHOLD=10;
