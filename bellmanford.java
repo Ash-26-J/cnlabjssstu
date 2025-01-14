@@ -1,45 +1,31 @@
 import java.util.Scanner;
-public class CRC{
- private static final int POLYNOMIAL=0x1021;
- private static final int INITIAL_CRC=0xFFFF;
-public static int computecrc(byte[] data){
- int crc=INITIAL_CRC;
- for(byte b:data){
-  crc^=(b<<8);
- for(int i=0;i<8;i++){
-  if((crc & 0x8000)!=0){
-   crc=(crc<<1)^POLYNOMIAL;
-  }
-  else{
-   crc=crc<<1;
-  }
-  crc&=0xFFFF;
- }
- }
- return crc;
+
+public class CN3 {
+    static String calCRC(String data, String poly, boolean error) {
+        StringBuffer rem = new StringBuffer(data);
+        if (!error)
+            for (int i = 0; i < poly.length() - 1; i++)
+                rem.append("0");
+        for (int i = 0; i < rem.length() - poly.length() + 1; i++)
+            if (rem.charAt(i) == '1')
+                for (int j = 0; j < poly.length(); j++)
+                    rem.setCharAt(i + j, (rem.charAt(i + j) == poly.charAt(j)) ? '0' : '1');
+        return rem.substring(rem.length() - poly.length() + 1);
+    }
+
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        System.out.print("Enter the data to be sent in bits : ");
+        String data = in.next();
+        String poly = "10000100010001010";
+        String encoded = data + calCRC(data, poly, false);
+        System.out.println("Encoded data : " + encoded);
+        System.out.print("Enter the data that was received : ");
+        String received = in.next();
+        String recString = calCRC(received, poly, true);
+        if (Integer.parseInt(recString, 2) == 0)
+            System.out.println("Data is correct.");
+        else
+            System.out.println("Data is incorrect.");
+    }
 }
-public static boolean verifycrc(byte[] data, int receivedcrc){
- int computedcrc=computecrc(data);
- return computedcrc==receivedcrc;
-}
-public static void main(String[] args){
- Scanner sc=new Scanner(System.in);
- System.out.println("Enter data to transmit:");
- String input=sc.nextLine();
- byte[] data=input.getBytes();
- int crc=computecrc(data);
- System.out.printf("Computed crc:0x%04X\n",crc);
- System.out.println("\nSimulating data transmission\n");
- System.out.println("Enter the recieved data:");
- String receivedinput=sc.nextLine();
- byte[] receivedData=receivedinput.getBytes();
- System.out.printf("Enter the recieved crc in hexadecimal(computed crc is 0x%04X: ",crc);
- int receivedcrc=Integer.parseInt(sc.nextLine(),16);
- if(verifycrc(receivedData,receivedcrc)){
-  System.out.println("No erors detected. Data is valid");
- }else{
-  System.out.println("Errors detected, data is invalid");
- }
- sc.close();
- }
-}  
