@@ -46,3 +46,21 @@ public class frames {
     }
 }
  
+/*o/p
+* sample out put format*
+enter the number of frames
+    5
+    enter the frame number :1
+    enter the data:sri
+    enter the frame numbetr:2
+    enter the data:jaya
+    enter the frame number:3
+    enter the data:chamrajendra
+    enter the frame number :4
+    enter the data:college
+    enter the frame number:5
+    enter the data :mysore
+    the sorted frames are :
+   sri jaya chamrajendra college mysore
+    */
+    
