@@ -42,3 +42,21 @@ public class CN4 {
 
 	}
 }
+/* o/p
+	enter the  number of vertices 5
+	enter the cost of the matrix:
+        0   6  5   999 999
+        999  0  999 -1 999
+	999  -2 0   4  3
+	999 999 999  0 3
+	999 999 999 999 0
+	enter the soucre:0
+	vertex     distance from source
+	0           0
+	1            3
+	2            5 
+	3            2
+	4            5
+	*/
+	
+	
