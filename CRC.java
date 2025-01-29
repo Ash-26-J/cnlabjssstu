@@ -43,3 +43,9 @@ public static void main(String[] args){
  sc.close();
  }
 }  
+/*o/p
+ enter the data buit :100110
+ enter tbe data:1001100010101011110110
+ enter the data that was recived:1001100010101011110110
+ data is correct
+  */
