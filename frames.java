@@ -28,14 +28,14 @@ public class frames {
 
     public static void main(String[] args) {
         System.out.println("Enter the number of frames:");
-        Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt();
+        Scanner in = new Scanner(System.in);
+        int n = in.nextInt();
         Frame[] f = new Frame[n];
         for (int i = 0; i < n; i++) {
             System.out.println("Enter the frame number:");
-            int num = sc.nextInt();
+            int num = in.nextInt();
             System.out.println("Enter the frame data:");
-            String data = sc.next();
+            String data = in.next();
             f[i] = new Frame(num, data);
         }
         sort(f);
