@@ -1,51 +1,63 @@
-import java.util.Scanner;
-public class CRC{
- private static final int POLYNOMIAL=0x1021;
- private static final int INITIAL_CRC=0xFFFF;
-public static int computecrc(byte[] data){
- int crc=INITIAL_CRC;
- for(byte b:data){
-  crc^=(b<<8);
- for(int i=0;i<8;i++){
-  if((crc & 0x8000)!=0){
-   crc=(crc<<1)^POLYNOMIAL;
-  }
-  else{
-   crc=crc<<1;
-  }
-  crc&=0xFFFF;
- }
- }
- return crc;
+import java.util.*;
+
+public class Main {
+    public String crc(String poly, String data, boolean error) {
+        String rem = data;
+        if (!error) {
+            for (int i = 0; i < poly.length() - 1; i++) {
+                rem += "0";
+            }
+        }
+        for (int i = 0; i < rem.length() - poly.length() + 1; i++) {
+            if (rem.charAt(i) == '1') {
+                String temp = "";
+                for (int j = 0; j < poly.length(); j++) {
+                    if (rem.charAt(i + j) == poly.charAt(j)) {
+                        temp += '0';
+                    } else {
+                        temp += '1';
+                    }
+                }
+                rem = rem.substring(0, i) + temp + rem.substring(i + poly.length()); // Corrected substring indices
+            }
+        }
+        return rem.substring(rem.length() - poly.length() + 1); // Corrected remainder length
+    }
+
+    public static void main(String[] args) {
+        Main nm = new Main();
+        Scanner in = new Scanner(System.in);
+        System.out.println("enter the polynomial");
+        String poly = in.next();
+        System.out.println("enter the data");
+        String data = in.next();
+        String rem = nm.crc(poly, data, false);
+        String code = data + rem;
+        System.out.println("remainder is " + rem);
+        System.out.println("coded word is " + code);
+        System.out.println("enter the received word");
+        String recivd = in.next();
+        String remrec = nm.crc(poly, recivd, true);
+        if (Integer.parseInt(remrec, 2) == 0) {
+            System.out.println("the data received is correct \n");
+        } else {
+            System.out.println("the data received is incorrect\n");
+        }
+    }
 }
-public static boolean verifycrc(byte[] data, int receivedcrc){
- int computedcrc=computecrc(data);
- return computedcrc==receivedcrc;
-}
-public static void main(String[] args){
- Scanner sc=new Scanner(System.in);
- System.out.println("Enter data to transmit:");
- String input=sc.nextLine();
- byte[] data=input.getBytes();
- int crc=computecrc(data);
- System.out.printf("Computed crc:0x%04X\n",crc);
- System.out.println("\nSimulating data transmission\n");
- System.out.println("Enter the recieved data:");
- String receivedinput=sc.nextLine();
- byte[] receivedData=receivedinput.getBytes();
- System.out.printf("Enter the recieved crc in hexadecimal(computed crc is 0x%04X: ",crc);
- int receivedcrc=Integer.parseInt(sc.nextLine(),16);
- if(verifycrc(receivedData,receivedcrc)){
-  System.out.println("No erors detected. Data is valid");
- }else{
-  System.out.println("Errors detected, data is invalid");
- }
- sc.close();
- }
-}  
-/*o/p
- enter the data buit :100110
- enter tbe data:1001100010101011110110
- enter the data that was recived:1001100010101011110110
+/*
+o/p
+enter the poly:
+1101
+ enter the data:
+100100
+ remainder is 001
+ coded word is 100100001
+ enter the recived word :
+ 100100001
  data is correct
-  */
+
+ if recived word entered is 1001001
+ data is in correct
+ */
+
