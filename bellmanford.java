@@ -1,62 +1,78 @@
-//Bellman ford
-
-import java.util.Arrays;
-import java.util.Scanner;
-
-public class CN4 {
-	static int N;
-	static int[][] cost;
-
-	static void bellmanFord(int src) {
-		int[] dist = new int[N];
-		Arrays.fill(dist, Integer.MAX_VALUE);
-		dist[src] = 0;
-		for (int i = 0; i < N; i++)
-			for (int u = 0; u < N; u++)
-				for (int v = 0; v < N; v++)
-					if (dist[u] != Integer.MAX_VALUE && dist[u] + cost[u][v] < dist[v])
-						dist[v] = dist[u] + cost[u][v];
-		for (int u = 0; u < N; u++)
-			for (int v = 0; v < N; v++)
-				if (dist[u] != Integer.MAX_VALUE && dist[u] + cost[u][v] < dist[v]) {
-					System.out.println("Negative weight cycle detected.");
-					return;
-				}
-		System.out.println("Vertex\tDistance from source");
-		for (int i = 0; i < N; i++)
-			System.out.println(i + "\t" + dist[i]);
-	}
-
-	public static void main(String[] args) {
-		Scanner in = new Scanner(System.in);
-		System.out.print("Enter the number of vertices : ");
-		N = in.nextInt();
-		cost = new int[N][N];
-		System.out.println("Enter the cost matrix : ");
-		for (int i = 0; i < N; i++)
-			for (int j = 0; j < N; j++)
-				cost[i][j] = in.nextInt();
-		System.out.print("Enter the source vertex : ");
-		int src = in.nextInt();
-		bellmanFord(src);
-
-	}
+import java.util.*;
+public class Main {
+static int n;
+static int cost[][];
+public void bell(int src)
+{
+    int dist[]=new int[n];
+    Arrays.fill(dist,Integer.MAX_VALUE);
+    dist[src]=0;
+    for(int i=0;i<n-1;i++)
+    {
+        for(int v=0;v<n;v++)
+        {
+            for(int u=0;u<n;u++)
+            {
+                if(cost[u][v] != Integer.MAX_VALUE && dist[u] + cost[u][v]< dist[v])
+                {
+                  dist[v]=dist[u]+cost[u][v];
+                }
+            }
+        }
+    }
+    for(int u=0;u<n;u++){
+        for(int v=0;v<n;v++)
+        {
+            if(cost[u][v]!=Integer.MAX_VALUE && dist[u]+cost[u][v]< dist[v])
+            {
+                System.out.println("the negative weigth is present \n");
+            }
+        }
+    }
+    System.out.println("vertices distance from source\n");
+    for(int i=0;i<n;i++)
+    {
+        System.out.println(i+"\t"+dist[i]);
+    }
 }
-/* o/p
-	enter the  number of vertices 5
-	enter the cost of the matrix:
-        0   6  5   999 999
-        999  0  999 -1 999
-	999  -2 0   4  3
-	999 999 999  0 3
-	999 999 999 999 0
-	enter the soucre:0
-	vertex     distance from source
-	0           0
-	1            3
-	2            5 
-	3            2
-	4            5
-	*/
-	
-	
+public static void main(String[] args) {
+
+        Main nm = new Main();
+        Scanner in = new Scanner(System.in);
+        System.out.println("enter the number of vertices for the graph\n");
+        n = in.nextInt();
+        System.out.println("enter the weight of the graph ");
+        cost = new int[n][n];
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<n;j++)
+            {
+                cost[i][j]=in.nextInt();
+            }
+        }
+        System.out.println("enter the source of the vertices\n");
+        int src = in.nextInt();
+        nm.bell(src);
+    }
+}
+/* 
+enter the number of vertices for the graph
+
+3
+enter the weight of the graph 
+-1 2 0
+4 5 3
+3 2 1
+enter the source of the vertices
+
+0
+the negative weigth is present 
+
+vertices distance from source
+
+0	-2147483647
+1	-2147483647
+2	-2147483647 
+*/
+
+
