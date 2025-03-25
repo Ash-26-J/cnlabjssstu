@@ -1,55 +1,83 @@
-//red algorithm
 import java.util.*;
-public class RED{
- private static final int MIN_THRESHOLD=10;
- private static final int MAX_THRESHOLD=50;
- private static final double MAX_PROBABILITY=1.0;
- private static class Queue{
-  private int length;
-  private int[] packets;
-  public Queue(int capacity){
-   packets=new int[capacity];
-   length=0;
-  }
-  public void addPacket(int packet){
-   if(length<packets.length){
-    packets[length]=packet;
-    length++;
-   }
-  }
-  public int getLength(){
-   return length;
-  }
- }
- private static double CalculateDropProbability(int queueLength){
-  double dropProbability;
-  if(queueLength<MIN_THRESHOLD){
-   dropProbability=0.0;
-  }
-  else if(queueLength>MAX_THRESHOLD){
-   dropProbability=MAX_PROBABILITY;
-  }
-  else{
-   dropProbability=(double)(queueLength-MIN_THRESHOLD)/(MAX_THRESHOLD-MIN_THRESHOLD);
-  }
-  return dropProbability;
- }
- private static void simulateREDGateway(Queue queue){
-  Random random=new Random();
-  int packet;
-  for(int i=0;i<20;i++){
-   packet=random.nextInt(20);
-   double dropProbability=CalculateDropProbability(queue.getLength());
-   if(random.nextDouble()<dropProbability){
-    System.out.println("Packet " +packet+" dropped");
-   }else{
-    queue.addPacket(packet);
-    System.out.println("Packet "+packet+" added to queue");
-   }
-  }
- }
- public static void main(String [] args){
-  Queue queue=new Queue(15);
-  simulateREDGateway(queue);
- }
-}              
+import java.math.*;
+class Main {
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in); 
+        System.out.println("enter the maximum picket\n");
+        int maxpkt = in.nextInt();
+        System.out.println("enter the queue size \n");
+        int quesize = in.nextInt();
+        System.out.println("enter the max probablity \n");
+        Double maxpro = in.nextDouble();
+        System.out.println("enter the min probablity \n");
+        Double minpro = in.nextDouble();
+        Double droppro = minpro;
+        int n = maxpkt;
+        int quelen =0;
+        for(int i=0;i<n;i++){
+            if(quelen == quesize){
+                System.out.println("the packet is dropped(queue full\n");
+                droppro =minpro;
+            }else if(Math.random()< droppro){
+                System.out.println("the packet is dropped(random)\n");
+                droppro += (maxpro-minpro)/(n-1);
+            }else{
+                System.out.println("packet accepted\n");
+                quelen++;
+            }
+        }
+    }
+}
+/*o/p
+enter the maximum picket
+
+20
+enter the queue size 
+
+10
+enter the max probablity 
+
+0.7
+enter the min probablity 
+
+0.3
+packet accepted
+
+packet accepted
+
+packet accepted
+
+packet accepted
+
+packet accepted
+
+packet accepted
+
+packet accepted
+
+packet accepted
+
+the packet is dropped(random)
+
+packet accepted
+
+packet accepted
+
+the packet is dropped(queue full)
+
+the packet is dropped(queue full)
+
+the packet is dropped(queue full)
+
+the packet is dropped(queue full)
+
+the packet is dropped(queue full)
+
+the packet is dropped(queue full)
+
+the packet is dropped(queue full)
+
+the packet is dropped(queue full)
+
+the packet is dropped(queue full)
+ */
