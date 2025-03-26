@@ -3,7 +3,7 @@ import java.math.*;
 class Main {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in); 
-        System.out.println("enter the maximum picket\n");
+        System.out.println("enter the maximum packet\n");
         int maxpkt = in.nextInt();
         System.out.println("enter the queue size \n");
         int quesize = in.nextInt();
