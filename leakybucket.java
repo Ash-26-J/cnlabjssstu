@@ -25,14 +25,17 @@ public class Main{
     }
 }
 /* o/p
- enter the bucket capacity
-10
-enter the rate
-1
-enter the number of packets
+ enter the packet size
+2
+enter the packet size
 4
 enter the packet size
-20
-current bucket size-20
-after outing-21
+6
+buffer full
+dropped
+enter the packet size
+3
+current size 9
+after outgoing8
+
  */
