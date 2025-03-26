@@ -4,7 +4,7 @@ class Main {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in); 
         System.out.println("enter the maximum packet\n");
-        int maxpkt = in.nextInt();
+        int n = in.nextInt();
         System.out.println("enter the queue size \n");
         int quesize = in.nextInt();
         System.out.println("enter the max probablity \n");
@@ -12,7 +12,6 @@ class Main {
         System.out.println("enter the min probablity \n");
         Double minpro = in.nextDouble();
         Double droppro = minpro;
-        int n = maxpkt;
         int quelen =0;
         for(int i=0;i<n;i++){
             if(quelen == quesize){
