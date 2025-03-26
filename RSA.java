@@ -1,7 +1,6 @@
 import java.util.*;
 import java.math.BigInteger;
-class Rsa
-{
+class Main{
     BigInteger mod,pub,prv;
     void getkeys(int bitlen) {
         Random r = new Random();
@@ -18,10 +17,8 @@ class Rsa
     BigInteger decrypt(BigInteger c){
         return c.modPow(prv,mod);
     }
-}
-public class Main {
     public static void main(String[] args) {
-        Rsa r = new Rsa();
+        Main r = new Main();
         r.getkeys(1024);
         Scanner in = new Scanner(System.in);
         System.out.println("enter the message");
