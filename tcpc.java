@@ -1,36 +1,25 @@
-import java.net.*;
+import java.util.*;
 import java.io.*;
+import java.net.*;
 
-public class TCPc {
-    public static void main(String[] args) throws Exception {
-        // Connect to server on localhost (127.0.0.1) at port 4000
-        Socket sock = new Socket("127.0.0.1", 9000);  // Correct IP Address
-        System.out.println("Connected to the server.");
-
-        // Read the filename from user input
-        System.out.println("Enter the filename:");
-        BufferedReader keyRead = new BufferedReader(new InputStreamReader(System.in));
-        String fname = keyRead.readLine();
-
-        // Send the filename to the server
-        OutputStream ostream = sock.getOutputStream();
-        PrintWriter pwrite = new PrintWriter(ostream, true);
-        pwrite.println(fname);  // Send filename to server
-
-        // Receive the file content from the server
-        InputStream istream = sock.getInputStream();
-        BufferedReader socketRead = new BufferedReader(new InputStreamReader(istream));
-        String str;
-
-        // Print the received data (file content)
-        while ((str = socketRead.readLine()) != null) {
-            System.out.println(str);
-        }
-
-        // Close all resources
-        pwrite.close();
-        socketRead.close();
-        keyRead.close();
-        sock.close();
-    }
+public class ownc{
+public static void main(String args[]) throws Exception{
+Scanner in  = new Scanner(System.in);
+Socket sock = new Socket("127.0.0.1",4000);
+System.out.println("enter the file name");
+String fname = in.next();
+OutputStream ostream = sock.getOutputStream();
+PrintWriter pwrite = new PrintWriter(ostream,true);
+InputStream istream = sock.getInputStream();
+pwrite.println(fname);
+in = new Scanner(new File(fname));
+while(in.hasNextLine()){
+System.out.println(in.nextLine());
 }
+}
+}
+/* o/p
+   enter the file name
+hello1.txt
+emdede,,elf,relf,rlf,r,fr,f,rpf;lr
+*/
