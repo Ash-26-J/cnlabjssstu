@@ -21,5 +21,5 @@ System.out.println(in.nextLine());
 /* o/p
    enter the file name
 hello1.txt
-emdede,,elf,relf,rlf,r,fr,f,rpf;lr
+helloworld!1!!
 */
