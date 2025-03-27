@@ -12,9 +12,9 @@ class Frame {
 
 public class frames {
     static void sort(Frame[] f) {
-        for (int i = 0; i < f.length; i++) {
+        for (int i = 0; i < f.length-1; i++) {
             boolean flag = false;
-            for (int j = 0; j < f.length - 1; j++) {
+            for (int j = 0; j < f.length -i- 1; j++) {
                 if (f[j].num > f[j + 1].num) {
                     Frame temp = f[j];
                     f[j] = f[j + 1];
